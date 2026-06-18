@@ -5,6 +5,10 @@ import { catalogApi } from "../../features/catalog/catalogApi";
 import { uiSlice } from "../layout/uiSlice";
 import { basketApi } from "../../features/basket/basketApi";
 import { catalogSlice } from "../../features/catalog/catalogSlice";
+import { accountApi } from "../../features/account/accountApi";
+import { errorApi } from "../../features/about/errorApi";
+import { checkoutApi } from "../../features/checkout/checkoutApi";
+import { orderApi } from "../../features/Orders/orderApi";
 
 export function configureTheStore(){
   return legacy_createStore(counterReducer);
@@ -13,13 +17,24 @@ export function configureTheStore(){
 export const store = configureStore({
   reducer:{
     [catalogApi.reducerPath]: catalogApi.reducer,
+    [errorApi.reducerPath]: errorApi.reducer,
     [basketApi.reducerPath]: basketApi.reducer,
+    [accountApi.reducerPath]: accountApi.reducer,
+    [checkoutApi.reducerPath]: checkoutApi.reducer,
+    [orderApi.reducerPath]: orderApi.reducer,
     counter: counterSlice.reducer,
     ui: uiSlice.reducer,
     catalog: catalogSlice.reducer
   },
   middleware: (getDefaultMiddleware) => 
-    getDefaultMiddleware().concat(catalogApi.middleware, basketApi.middleware)
+    getDefaultMiddleware().concat(
+      catalogApi.middleware,
+      errorApi.middleware, 
+      basketApi.middleware,
+      accountApi.middleware,
+      checkoutApi.middleware,
+      orderApi.middleware
+    )
 })
 
 export type RootState = ReturnType<typeof store.getState>

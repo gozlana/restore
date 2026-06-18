@@ -7,7 +7,7 @@ const initialState: ProductParams = {
   brands: [],
   searchTerm: '',
   pageNumber: 1,
-  pageSize: 8
+  pageSize: 9
 }
 
 export const catalogSlice = createSlice({

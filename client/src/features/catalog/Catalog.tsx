@@ -37,10 +37,7 @@ export default function Catalog() {
         ) : (
           <Typography variant="h5">There are no result for this filter.</Typography>
         )}
-
-
       </Grid2>
-
     </Grid2>
   )
 }

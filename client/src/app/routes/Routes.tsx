@@ -6,20 +6,33 @@ import AboutPage from "../../features/about/AboutPage";
 import Catalog from "../../features/catalog/Catalog";
 import ProductDetails from "../../features/catalog/ProductDetails";
 import BasketPage from "../../features/basket/BasketPage";
-import CheckoutPage from "../../features/checkout/checkoutPage";
+import LoginForm from "../../features/account/LoginForm";
+import CheckoutPage from "../../features/checkout/CheckoutPage";
+import RegisterForm from "../../features/account/RegisterForm";
+import RequireAuth from "./RequireAuth";
+import CheckoutSuccess from "../../features/checkout/CheckoutSuccess";
+import OrdersPage from "../../features/Orders/OrdersPage";
+import OrderDetailedPage from "../../features/Orders/OrderDetailedPage";
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
+      {element: <RequireAuth />, children: [
+        {path: 'checkout', element: <CheckoutPage />},
+        {path: 'checkout/success', element: <CheckoutSuccess />},
+        {path: 'orders', element: <OrdersPage />},
+        {path: 'orders/:id', element: <OrderDetailedPage />}
+      ]},
       {path: '', element: <HomePage />},
-      {path: '/catalog', element: <Catalog />},
-      {path: '/catalog/:id', element: <ProductDetails />},
-      {path: '/contact', element: <ContactPage />},
-      {path: '/basket', element: <BasketPage />},
-      {path: '/checkout', element: <CheckoutPage />},
-      {path: '/about', element: <AboutPage />}
+      {path: 'catalog', element: <Catalog />},
+      {path: 'catalog/:id', element: <ProductDetails />},
+      {path: 'contact', element: <ContactPage />},
+      {path: 'basket', element: <BasketPage />},
+      {path: 'login', element: <LoginForm />},
+      {path: 'register', element: <RegisterForm />},
+      {path: 'about', element: <AboutPage />}
     ]
   }
 ])
