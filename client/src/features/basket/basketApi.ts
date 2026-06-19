@@ -29,7 +29,8 @@ export const basketApi = createApi({
         const productId = isBasketItem(product) ? product.productId : product.id;
         const patchResult = dispatch(
           basketApi.util.updateQueryData('fetchBasket', undefined, (draft) => {
-            const existingItems = draft.items.find(item => item.productId === productId);
+            if (!draft) return;
+            const existingItems = draft.items?.find(item => item.productId === productId);
             if (existingItems) {
               existingItems.quantity += quantity;
             } else {
@@ -90,5 +91,5 @@ export const basketApi = createApi({
 
 });
 
-export const { useFetchBasketQuery, useAddBasketItemMutation, 
+export const { useFetchBasketQuery, useAddBasketItemMutation,
   useRemoveBasketItemMutation, useClearBasketMutation } = basketApi;
