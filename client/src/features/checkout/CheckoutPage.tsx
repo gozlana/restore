@@ -13,14 +13,14 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
 export default function CheckoutPage() {
   const { data: basket } = useFetchBasketQuery();
-  const [createPaymentIntent, {isLoading}] = useCreatePaymentIntentMutation();
+  const [createPaymentIntent, { isLoading }] = useCreatePaymentIntentMutation();
   const created = useRef(false);
-  const {darkMode} = useAppSelector(state => state.ui);
+  const { darkMode } = useAppSelector(state => state.ui);
 
   useEffect(() => {
     if (!created.current) createPaymentIntent();
     created.current = true;
-  }, [createPaymentIntent]) 
+  }, [createPaymentIntent])
 
 
   const options: StripeElementsOptions | undefined = useMemo(() => {
@@ -30,7 +30,7 @@ export default function CheckoutPage() {
       appearance: {
         labels: 'floating',
         theme: darkMode ? 'night' : 'stripe'
-      } 
+      }
     }
   }, [basket?.clientSecret, darkMode]);
 
@@ -42,11 +42,11 @@ export default function CheckoutPage() {
             Loading...
           </Typography>
         ) : (
-          <Elements stripe={stripePromise} options={options}>
+          <Elements key={basket?.clientSecret} stripe={stripePromise} options={options}>
             <CheckoutStepper />
           </Elements>
         )}
-        
+
       </Grid2>
       <Grid2 size={4}>
         <OrderSummary />

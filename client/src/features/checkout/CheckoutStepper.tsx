@@ -3,12 +3,13 @@ import { AddressElement, PaymentElement, useElements, useStripe } from "@stripe/
 import { useState } from "react";
 import Review from "./Review";
 import { useFetchAddressQuery, useUpdateAddressMutation } from "../account/accountApi";
-import { Address, ConfirmationToken, StripeAddressElementChangeEvent, StripePaymentElementChangeEvent } from "@stripe/stripe-js";
+import { ConfirmationToken, StripeAddressElementChangeEvent, StripePaymentElementChangeEvent } from "@stripe/stripe-js";
 import { useBasket } from "../../lib/hooks/useBasket";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { LoadingButton } from '@mui/lab';
 import { useCreateOrderMutation } from "../Orders/orderApi";
+import { Address } from "../../app/models/user";
 
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
@@ -32,6 +33,7 @@ export default function CheckoutStepper() {
   const handleNext = async () => {
     if (activeStep === 0 && saveAddress && elements) {
       const address = await getStripeAddress();
+      console.log("address being saved:", address);
       if (address) await updateAddress(address);
     }
 
@@ -95,7 +97,7 @@ export default function CheckoutStepper() {
     const addressElement = elements?.getElement('address');
     if (!addressElement) return null;
     const { value: { name, address } } = await addressElement.getValue();
-    if (name && address) return { ...address, name }
+    if (name && address) return { name, ...address }
     return null;
   }
 
@@ -104,6 +106,7 @@ export default function CheckoutStepper() {
   };
 
   const handleAddressChange = (event: StripeAddressElementChangeEvent) => {
+    console.log("Stipe address event: ", event.value);
     setAddressComplete(event.complete);
   }
 
@@ -111,7 +114,7 @@ export default function CheckoutStepper() {
     setPaymentComplete(event.complete);
   }
 
-  if (isLoading) return <Typography variant="h6">Loading...</Typography>
+  if (isLoading) return <Typography variant="h6">Loading Address...</Typography>
 
   return (
     <Paper sx={{ p: 3, borderRadius: 3 }}>
@@ -131,7 +134,7 @@ export default function CheckoutStepper() {
               mode: 'shipping',
               defaultValues: {
                 name: name,
-                address: restAddress
+                address: restAddress,
               }
             }}
             onChange={handleAddressChange}
@@ -146,7 +149,15 @@ export default function CheckoutStepper() {
           />
         </Box>
         <Box sx={{ display: activeStep === 1 ? 'block' : 'none' }}>
-          <PaymentElement onChange={handlePaymentChange} />
+          <PaymentElement 
+            options={{
+              wallets: {
+                applePay: "never",
+                googlePay: "never",
+              },
+            }}
+          onChange={handlePaymentChange} 
+          />
         </Box>
         <Box sx={{ display: activeStep === 2 ? 'block' : 'none' }}>
           <Review confirmationToken={confirmationToken} />
