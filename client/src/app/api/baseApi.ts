@@ -24,7 +24,7 @@ export const baseQueryWithErrorHandling: BaseQueryFn<
     delete (request as any).body;
   }
   api.dispatch(startLoading());
-  await sleep();
+  if (import.meta.env.DEV) await sleep();
   const result = await customBaseQuery(request, api, extraOptions);
   api.dispatch(stopLoading());
   if (result.error) {

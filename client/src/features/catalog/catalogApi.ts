@@ -16,7 +16,10 @@ export const catalogApi = createApi({
           params: filterEmptyValues(productParams)
         }
       },
-      transformResponse: (items: Product[], meta) => {
+      transformResponse: (
+        items: Product[], 
+        meta: {response?: Response}
+      ) => {
         const paginationHeader = meta?.response?.headers.get('Pagination');
         const pagination = paginationHeader ? JSON.parse(paginationHeader) : null;
         return {items, pagination}
