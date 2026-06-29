@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { LoadingButton } from '@mui/lab';
 import { useCreateOrderMutation } from "../Orders/orderApi";
-import { Address } from "../../app/models/user";
 
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
@@ -18,7 +17,7 @@ export default function CheckoutStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [createOrder] = useCreateOrderMutation();
   const { basket } = useBasket();
-  const { data: { name, ...restAddress } = {} as Address, isLoading } = useFetchAddressQuery();
+  const { data, isLoading } = useFetchAddressQuery();
   const [updateAddress] = useUpdateAddressMutation();
   const [saveAddress, setSaveAddress] = useState(false);
   const elements = useElements();
@@ -29,6 +28,11 @@ export default function CheckoutStepper() {
   const { total, clearBasket } = useBasket();
   const stripe = useStripe();
   const [confirmationToken, setConfirmationToken] = useState<ConfirmationToken | null>(null);
+
+  let name, restAddress;
+  if (data) {
+    ({ name, ...restAddress} = data);
+  }
 
   const handleNext = async () => {
     if (activeStep === 0 && saveAddress && elements) {
@@ -68,7 +72,7 @@ export default function CheckoutStepper() {
       });
 
       if (paymentResult?.paymentIntent?.status === 'succeeded') {
-        navigate('/checkout/success', {state: orderResult});
+        navigate('/checkout/success', { state: orderResult });
         clearBasket();
       } else if (paymentResult?.error) {
         throw new Error(paymentResult.error.message);
@@ -89,8 +93,8 @@ export default function CheckoutStepper() {
     const shippingAddress = await getStripeAddress();
     const paymentSummary = confirmationToken?.payment_method_preview.card;
 
-    if(!shippingAddress || !paymentSummary) throw new Error("Problem creating order");
-    return {shippingAddress, paymentSummary}
+    if (!shippingAddress || !paymentSummary) throw new Error("Problem creating order");
+    return { shippingAddress, paymentSummary }
   }
 
   const getStripeAddress = async () => {
@@ -149,14 +153,14 @@ export default function CheckoutStepper() {
           />
         </Box>
         <Box sx={{ display: activeStep === 1 ? 'block' : 'none' }}>
-          <PaymentElement 
+          <PaymentElement
             options={{
               wallets: {
                 applePay: "never",
                 googlePay: "never",
               },
             }}
-          onChange={handlePaymentChange} 
+            onChange={handlePaymentChange}
           />
         </Box>
         <Box sx={{ display: activeStep === 2 ? 'block' : 'none' }}>

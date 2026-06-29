@@ -1,7 +1,6 @@
 using System;
 using API.DTOs;
 using API.Entities;
-using Humanizer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -103,10 +102,10 @@ public class AccountController(SignInManager<User> signInManager) : BaseApiContr
   [HttpGet("address")]
   public async Task<ActionResult<Address>> GetSavedAddress()
   {
-    var address = signInManager.UserManager.Users
+    var address = await signInManager.UserManager.Users
       .Where(x => x.UserName == User.Identity!.Name)
       .Select(x => x.Address)
-      .FirstOrDefault();
+      .FirstOrDefaultAsync();
 
     if (address == null) return NoContent();
 
