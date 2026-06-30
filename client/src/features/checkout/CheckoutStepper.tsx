@@ -31,7 +31,7 @@ export default function CheckoutStepper() {
 
   let name, restAddress;
   if (data) {
-    ({ name, ...restAddress} = data);
+    ({ name, ...restAddress } = data);
   }
 
   const handleNext = async () => {
@@ -121,8 +121,24 @@ export default function CheckoutStepper() {
   if (isLoading) return <Typography variant="h6">Loading Address...</Typography>
 
   return (
-    <Paper sx={{ p: 3, borderRadius: 3 }}>
-      <Stepper activeStep={activeStep}>
+    <Paper
+      sx={{
+        p: { xs: 2, sm: 3 },
+        borderRadius: 3,
+        width: "100%",
+        overflow: "hidden",
+      }}
+    >
+      <Stepper
+        activeStep={activeStep}
+        alternativeLabel
+        sx={{
+          mb: 3,
+          "& .MuiStepLabel-label": {
+            fontSize: { xs: "0.75rem", sm: "0.875rem" },
+          },
+        }}
+      >
         {steps.map((label, index) => {
           return (
             <Step key={index}>

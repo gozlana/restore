@@ -25,9 +25,8 @@ export default function ProductDetails() {
 
     if (!item || quantity > item.quantity) {
       addBasketItem({ product, quantity: updatedQuantity });
-    }else
-    {
-      removeBasketItem({productId: product.id, quantity: updatedQuantity});
+    } else {
+      removeBasketItem({ productId: product.id, quantity: updatedQuantity });
     }
   }
 
@@ -46,54 +45,112 @@ export default function ProductDetails() {
   ]
 
   return (
-    <Grid2 container spacing={6} maxWidth='lg' sx={{ mx: 'auto' }}>
-      <Grid2 size={6}>
-        <img src={product?.pictureUrl} alt={product?.name} style={{ width: '100%' }} />
+    <Grid2
+      container
+      spacing={{ xs: 3, md: 6 }}
+      maxWidth="lg"
+      sx={{
+        mx: "auto",
+        px: { xs: 2, md: 0 },
+        pt: 0,
+        mt: { xs: -4, md: 0 },
+      }}
+    >
+      <Grid2 size={{ xs: 12, md: 6 }}>
+        <img
+          src={product.pictureUrl}
+          alt={product.name}
+          style={{
+            width: "100%",
+            maxHeight: 420,
+            objectFit: "contain",
+            borderRadius: 16,
+            background: "#fff",
+          }}
+        />
       </Grid2>
-      <Grid2 size={6}>
-        <Typography variant='h3'>{product?.name}</Typography>
+
+      <Grid2 size={{ xs: 12, md: 6 }}>
+        <Typography
+          variant="h3"
+          sx={{
+            fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+            fontWeight: 700,
+            lineHeight: 1.15,
+            mb: 1,
+          }}
+        >
+          {product.name}
+        </Typography>
+
         <Divider sx={{ mb: 2 }} />
-        <Typography variant='h4' color='secondary'>${(product.price / 100).toFixed(2)}</Typography>
-        <TableContainer>
-          <Table sx={{
-            '& td': { fontSize: '1rem' }
-          }}>
+
+        <Typography
+          variant="h4"
+          color="secondary"
+          sx={{
+            fontSize: { xs: "1.8rem", md: "2.2rem" },
+            fontWeight: 700,
+            mb: 3,
+          }}
+        >
+          ${(product.price / 100).toFixed(2)}
+        </Typography>
+
+        <TableContainer
+          sx={{
+            mb: 3,
+            "& td": {
+              borderBottom: "1px solid rgba(0,0,0,0.08)",
+              py: 1.5,
+              fontSize: { xs: "0.95rem", md: "1rem" },
+            },
+          }}
+        >
+          <Table>
             <TableBody>
               {productDetails.map((detail, index) => (
                 <TableRow key={index}>
-                  <TableCell sx={{ fontWeight: 'bold' }}>{detail.label}</TableCell>
-                  <TableCell>{detail.value}</TableCell>
+                  <TableCell sx={{ fontWeight: 700, width: "42%" }}>
+                    {detail.label}
+                  </TableCell>
+                  <TableCell sx={{ wordBreak: "break-word" }}>
+                    {detail.value}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-        <Grid2 container spacing={2} marginTop={3}>
-          <Grid2 size={6}>
+
+        <Grid2 container spacing={2}>
+          <Grid2 size={{ xs: 12, sm: 6 }}>
             <TextField
-              variant='outlined'
-              type='number'
-              label='Quantity in basket'
+              variant="outlined"
+              type="number"
+              label="Quantity in basket"
               fullWidth
               value={quantity}
               onChange={handleInputChange}
             />
           </Grid2>
-          <Grid2>
+
+          <Grid2 size={{ xs: 12, sm: 6 }}>
             <Button
               onClick={handleUpdateBasket}
-              disabled={quantity === item?.quantity || !item && quantity === 0}
-              sx={{ height: '55px' }}
+              disabled={quantity === item?.quantity || (!item && quantity === 0)}
+              sx={{ height: "56px", borderRadius: 2, fontWeight: 700 }}
               color="primary"
               size="large"
               variant="contained"
               fullWidth
             >
-              {item ? 'Update quantity' : 'Add to basket'}
+              {item ? "Update quantity" : "Add to basket"}
             </Button>
           </Grid2>
         </Grid2>
       </Grid2>
     </Grid2>
-  )
+  );
+
 }

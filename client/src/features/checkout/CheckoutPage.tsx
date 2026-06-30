@@ -35,22 +35,30 @@ export default function CheckoutPage() {
   }, [basket?.clientSecret, darkMode]);
 
   return (
-    <Grid2 container spacing={2}>
-      <Grid2 size={8}>
+    <Grid2
+      container
+      spacing={{ xs: 2, md: 3 }}
+      sx={{
+        mt: { xs: -4, md: 4 },
+        px: { xs: 1.5, sm: 2, md: 0 },
+        maxWidth: "1100px",
+        mx: "auto",
+        alignItems: "flex-start",
+      }}
+    >
+      <Grid2 size={{ xs: 12, md: 8 }}>
         {!stripePromise || !options || isLoading ? (
-          <Typography variant="h6">
-            Loading...
-          </Typography>
+          <Typography variant="h6">Loading...</Typography>
         ) : (
           <Elements key={basket?.clientSecret} stripe={stripePromise} options={options}>
             <CheckoutStepper />
           </Elements>
         )}
-
       </Grid2>
-      <Grid2 size={4}>
+
+      <Grid2 size={{ xs: 12, md: 4 }}>
         <OrderSummary />
       </Grid2>
     </Grid2>
-  )
+  );
 }
