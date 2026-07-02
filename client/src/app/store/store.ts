@@ -1,5 +1,4 @@
-import { configureStore, legacy_createStore } from "@reduxjs/toolkit";
-import counterReducer, { counterSlice } from "../../features/contact/CounterReducer";
+import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { catalogApi } from "../../features/catalog/catalogApi";
 import { uiSlice } from "../layout/uiSlice";
@@ -10,9 +9,6 @@ import { errorApi } from "../../features/about/errorApi";
 import { checkoutApi } from "../../features/checkout/checkoutApi";
 import { orderApi } from "../../features/Orders/orderApi";
 
-export function configureTheStore(){
-  return legacy_createStore(counterReducer);
-}
 
 export const store = configureStore({
   reducer:{
@@ -22,7 +18,6 @@ export const store = configureStore({
     [accountApi.reducerPath]: accountApi.reducer,
     [checkoutApi.reducerPath]: checkoutApi.reducer,
     [orderApi.reducerPath]: orderApi.reducer,
-    counter: counterSlice.reducer,
     ui: uiSlice.reducer,
     catalog: catalogSlice.reducer
   },

@@ -34,7 +34,7 @@ export default function BasketItem({ item }: Props) {
           sx={{
             width: {
               xs: 115,
-              sm: 115,
+              sm: 115
             },
             height: {
               xs: 130,

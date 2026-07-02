@@ -32,9 +32,15 @@ import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
 import Divider from "@mui/material/Divider";
 import ListItemIcon from "@mui/material/ListItemIcon";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import InputBase from "@mui/material/InputBase";
+
+
 
 
 const midLinks = [
+  { title: "home", path: "/" },
   { title: "catalog", path: "/catalog" },
   { title: "about", path: "/about" },
   { title: "contact", path: "/contact" },
@@ -47,13 +53,41 @@ const rightLinks = [
 
 const navStyles = {
   color: "inherit",
-  typography: "h6",
+  typography: "subtitle1",
   textDecoration: "none",
+  px: 1.7,
+  py: 2,
+  mx: 0.5,
+  fontWeight: 800,
+  letterSpacing: 1.2,
+  position: "relative",
+  transition: "all .25s ease",
+
   "&:hover": {
-    color: "grey.500",
+    color: "#FFD54F",
+    backgroundColor: "rgba(255,255,255, .08)",
+    borderRadius: "8px"
   },
+
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    left: "50%",
+    bottom: 8,
+    width: 0,
+    height: 3,
+    borderRadius: "999px",
+    background: "#FFD54F",
+    transform: "translateX(-50%)",
+    transition: "width .25s ease",
+  },
+
   "&.active": {
-    color: "#baecf9",
+    color: "#fff",
+  },
+
+  "&.active::after": {
+    width: "55%",
   },
 };
 
@@ -64,6 +98,9 @@ export default function NavBar() {
   const dispatch = useAppDispatch();
   const { data: basket } = useFetchBasketQuery();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
+
 
   const itemCount =
     basket?.items.reduce((sum, item) => sum + item.quantity, 0) || 0;
@@ -100,6 +137,7 @@ export default function NavBar() {
                 height: { xs: 30, md: 36 },
                 width: "auto",
                 display: "block",
+                background: "transparent"
               }}
             />
           </Box>
@@ -119,6 +157,7 @@ export default function NavBar() {
               component={NavLink}
               to={path}
               key={path}
+              end={path === "/"}
               sx={navStyles}
             >
               {title.toUpperCase()}
@@ -127,6 +166,65 @@ export default function NavBar() {
         </List>
 
         <Box display="flex" alignItems="center">
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              overflow: "hidden",
+              width: searchOpen ? 260 : 42,
+              height: 42,
+              borderRadius: "999px",
+              transition: "all .3s ease",
+              bgcolor: searchOpen ? "rgba(255,255,255,.15)" : "transparent",
+              mr: 1.5,
+            }}
+          >
+            <IconButton
+              onClick={() => setSearchOpen(true)}
+              sx={{
+                color: "white",
+                width: 42,
+                height: 42,
+                "&:hover": {
+                  color: "#FFD54F",
+                },
+              }}
+            >
+              <SearchRoundedIcon />
+            </IconButton>
+
+            {searchOpen && (
+              <>
+                <InputBase
+                  autoFocus
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                  placeholder="Search products..."
+                  sx={{
+                    flex: 1,
+                    color: "white",
+                    ml: 1,
+                    input: {
+                      color: "white",
+                      "&::placeholder": {
+                        color: "rgba(255,255,255,.75)",
+                      },
+                    },
+                  }}
+                />
+
+                <IconButton
+                  onClick={() => {
+                    setSearchOpen(false);
+                    setSearchText("");
+                  }}
+                  sx={{ color: "white" }}
+                >
+                  <CloseRoundedIcon fontSize="small" />
+                </IconButton>
+              </>
+            )}
+          </Box>
           <IconButton
             component={Link}
             to="/basket"

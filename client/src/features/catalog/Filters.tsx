@@ -37,7 +37,7 @@ type Props = {
   hideSearch?: boolean;
 };
 
-export default function Filters({ filtersData: data, hideSearch = false }: Props) {
+export default function Filters({ filtersData: data }: Props) {
   const { orderBy, brands, types } = useAppSelector((state) => state.catalog);
   const dispatch = useAppDispatch();
 
@@ -81,12 +81,9 @@ export default function Filters({ filtersData: data, hideSearch = false }: Props
         pb: { xs: 2, md: 0 },
       }}
     >
-      {!hideSearch && (
-        <Paper sx={cardSx}>
-          <Search />
-        </Paper>
-      )}
-
+      <Box>
+        <Search />
+      </Box>
 
       <Paper sx={cardSx}>
         <Box sx={headerSx} onClick={() => setOpenSort(!openSort)}>

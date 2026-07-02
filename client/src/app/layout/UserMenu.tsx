@@ -1,9 +1,12 @@
 import { Button, Divider, Fade, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
 import React from "react";
 import { User } from "../models/user";
-import { History, Logout, Person} from "@mui/icons-material";
+import { History, Logout, Person } from "@mui/icons-material";
 import { useLogoutMutation } from "../../features/account/accountApi";
 import { Link, useNavigate } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
 
 type Props = {
   user: User;
@@ -32,15 +35,34 @@ export default function UserMenu({ user }: Props) {
     }
   }
 
+  const displayName = user.email.split("@")[0];
+
   return (
     <div>
-      <Button 
+      <Button
         onClick={handleClick}
-        color="inherit"
-        size="large"
-        sx={{fontsize: '1.1rem'}}
+        startIcon={<AccountCircleIcon />}
+        endIcon={<KeyboardArrowDownIcon />}
+        sx={{
+          color: "#fff",
+          textTransform: "capitalize",
+          fontWeight: 700,
+          fontSize: "0.95rem",
+          borderRadius: "999px",
+          px: 1.7,
+          py: 0.7,
+          ml: 1,
+          backgroundColor: "rgba(255,255,255,0.14)",
+          border: "1px solid rgba(255,255,255,0.25)",
+          boxShadow: "0 4px 14px rgba(0,0,0,0.12)",
+          "&:hover": {
+            backgroundColor: "rgba(255,255,255,0.24)",
+            transform: "translateY(-1px)",
+          },
+          transition: "all 0.2s ease",
+        }}
       >
-        {user?.email ?? 'Account'}
+        {displayName}
       </Button>
       <Menu
         id="fade-menu"
