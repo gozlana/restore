@@ -18,14 +18,14 @@ export default function Catalog() {
   if (isLoading || !data || filtersLoading || !filtersData) return <div>Loading...</div>
 
   return (
-    <Grid2 container spacing={4} sx={{ flexDirection: { xs: "column", md: "row" } }}>
-      <Grid2
-        size={{ xs: 12, md: 3 }}
-        sx={{ mt: { xs: -4, md: 0 } }}
-      >
-        <Filters filtersData={filtersData} />
+    <Grid2 container spacing={4} sx={{ flexDirection: {xs: "column", md: "row"} }}>
+      <Grid2 
+        size={{ xs: 12, md: 3}}
+        sx={{ mt: { xs: -4, md: 0 }}}
+        >
+        <Filters filtersData={filtersData}/>
       </Grid2>
-      <Grid2 size={{ xs: 12, md: 9 }}>
+      <Grid2 size={{ xs: 12, md: 9}}>
         {data.items && data.items.length > 0 ? (
           <>
             <ProductList products={data.items} />
@@ -33,7 +33,7 @@ export default function Catalog() {
               metadata={data.pagination}
               onPageChange={(page: number) => {
                 dispatch(setPageNumber(page));
-                window.scrollTo({ top: 0, behavior: 'smooth' })
+                window.scrollTo({top: 0, behavior: 'smooth'})
               }}
             />
           </>
