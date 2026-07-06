@@ -1,6 +1,16 @@
-import { Box, Button, Card, CardContent, Container, Grid, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Container,
+  Grid,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Link as RouterLink } from "react-router-dom";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -10,81 +20,94 @@ const slides = [
   {
     title: "Premium Refurbished Electronics",
     subtitle: "Save up to 70% on certified phones, laptops and accessories.",
-    image: "/images/hero1.jpg",
+    image: "/images/laptops.png",
   },
   {
     title: "Sell Your Device",
     subtitle: "Turn your old device into cash in minutes.",
-    image: "/images/hero2.jpg",
+    image: "/images/phones.png",
   },
   {
     title: "Summer Tech Deals",
     subtitle: "Discover amazing discounts on top brands.",
-    image: "/images/hero3.jpg",
+    image: "/images/tablets.png",
+  },
+];
+
+const categoryCards = [
+  {
+    title: "Shop by Category",
+    items: [
+      { name: "Phones", image: "/images/phones.png" },
+      { name: "Laptops", image: "/images/laptops.png" },
+      { name: "Tablets", image: "/images/tablets.png" },
+      { name: "Accessories", image: "/images/accessories.jpeg" },
+    ],
+  },
+  {
+    title: "Our Top Picks",
+    items: [
+      { name: "MacBook Deals", image: "/images/macbook-deals.png" },
+      { name: "iPhone Deals", image: "/images/iphones-deals.jpeg" },
+    ],
+  },
+  {
+    title: "Deals Under Budget",
+    items: [
+      { name: "Under $50", image: "/images/under-50.png" },
+      { name: "Under $100", image: "/images/under-100.png" },
+      { name: "Under $150", image: "/images/under-150.jpeg" },
+      { name: "Under $200", image: "/images/under-200.jpeg" },
+    ],
+  },
+  {
+    title: "Featured Promo",
+    promo: true,
   },
 ];
 
 const trustItems = [
-  { icon: "🚚", title: "Free Shipping", text: "Fast delivery on selected orders" },
-  { icon: "🔄", title: "30-Day Returns", text: "Easy returns with no stress" },
-  { icon: "🛡️", title: "1-Year Warranty", text: "Certified refurbished protection" },
-  { icon: "⭐", title: "Top Rated", text: "Trusted by happy customers" },
-];
-
-const categories = [
-  { title: "Phones", image: "/images/phones.jpg" },
-  { title: "Laptops", image: "/images/laptops.jpg" },
-  { title: "Accessories", image: "/images/accessories.jpg" },
+  { icon: "🚚", title: "Free Shipping", text: "On selected orders" },
+  { icon: "🔄", title: "30-Day Returns", text: "Hassle-free returns" },
+  { icon: "🛡️", title: "1-Year Warranty", text: "Certified protection" },
+  { icon: "🔒", title: "Secure Payment", text: "100% secure checkout" },
 ];
 
 export default function HomePage() {
   return (
-    <Box sx={{ bgcolor: "#1627c9", minHeight: "100vh", pb: 2 }}>
-      <Container maxWidth={false} disableGutters sx={{ px: { xs: 1.5, md: 2, lg: 8 }, pt: 5 }}>
+    <Box sx={{ bgcolor: "#f5f7fb", minHeight: "100vh", pb: 6 }}>
+      <Container maxWidth={false} sx={{ px: { xs: 2, md: 4 }, pt: 3 }}>
         <Swiper
           modules={[Autoplay, Pagination, Navigation]}
           autoplay={{ delay: 5000 }}
           loop
           navigation
           pagination={{ clickable: true }}
-          style={{ borderRadius: "28px", overflow: "hidden" }}
+          style={{ borderRadius: "24px", overflow: "hidden" }}
         >
           {slides.map((slide) => (
             <SwiperSlide key={slide.title}>
               <Box
                 sx={{
-                  height: { xs: 420, md: 600 },
-                  position: "relative",
+                  height: { xs: 360, md: 430 },
                   backgroundImage: `
-linear-gradient(
-to right,
-rgba(0,0,0,.78),
-rgba(0,0,0,.42),
-rgba(0,0,0,.08)
-),
+linear-gradient(to right, rgba(0,0,0,.75), rgba(0,0,0,.35), rgba(0,0,0,.08)),
 url(${slide.image})
 `,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   display: "flex",
                   alignItems: "center",
+                  px: { xs: 4, md: 10 },
                 }}
               >
-                <Box
-                  sx={{
-                    maxWidth: 720,
-                    pl: { xs: 4, md: 10 },
-                    pr: 3,
-                    color: "white",
-                  }}
-                >
+                <Box sx={{ color: "white", maxWidth: 650 }}>
                   <Typography
                     sx={{
-                      fontSize: { xs: "2.7rem", md: "5rem" },
+                      fontSize: { xs: "2.7rem", md: "4.7rem" },
                       fontWeight: 900,
                       lineHeight: 1.02,
-                      mb: 3,
-                      textShadow: "0 8px 28px rgba(0,0,0,.45)",
+                      mb: 2,
                     }}
                   >
                     {slide.title}
@@ -92,29 +115,27 @@ url(${slide.image})
 
                   <Typography
                     sx={{
-                      fontSize: { xs: "1rem", md: "1.35rem" },
-                      maxWidth: 560,
-                      mb: 4,
-                      opacity: 0.96,
-                      fontWeight: 500,
+                      fontSize: { xs: "1rem", md: "1.25rem" },
+                      fontWeight: 600,
+                      mb: 3,
                     }}
                   >
                     {slide.subtitle}
                   </Typography>
 
-                  <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                  <Stack direction="row" spacing={2}>
                     <Button
+                      component={RouterLink}
+                      to="/catalog"
                       variant="contained"
-                      size="large"
                       sx={{
                         borderRadius: 50,
                         px: 5,
-                        py: 1.6,
-                        fontWeight: 800,
+                        py: 1.4,
+                        fontWeight: 900,
                         textTransform: "none",
                         bgcolor: "#f7c948",
                         color: "#111",
-                        boxShadow: "0 14px 35px rgba(247,201,72,.35)",
                         "&:hover": { bgcolor: "#ffd95c" },
                       }}
                     >
@@ -122,19 +143,20 @@ url(${slide.image})
                     </Button>
 
                     <Button
+                      component={RouterLink}
+                      to="/about"
                       variant="outlined"
-                      size="large"
                       sx={{
                         borderRadius: 50,
                         px: 5,
-                        py: 1.6,
-                        fontWeight: 800,
+                        py: 1.4,
+                        fontWeight: 900,
                         textTransform: "none",
                         color: "white",
-                        borderColor: "rgba(255,255,255,.8)",
+                        borderColor: "white",
                         "&:hover": {
                           borderColor: "white",
-                          bgcolor: "rgba(255,255,255,.1)",
+                          bgcolor: "rgba(255,255,255,.12)",
                         },
                       }}
                     >
@@ -146,7 +168,7 @@ url(${slide.image})
                     direction="row"
                     spacing={3}
                     sx={{
-                      mt: 4,
+                      mt: 3,
                       flexWrap: "wrap",
                       fontWeight: 700,
                       opacity: 0.95,
@@ -163,135 +185,130 @@ url(${slide.image})
         </Swiper>
 
         <Grid container spacing={3} sx={{ mt: 4 }}>
-          {trustItems.map((item) => (
-            <Grid item xs={12} sm={6} md={3} key={item.title}>
+          {categoryCards.map((section) => (
+            <Grid item xs={12} md={3} key={section.title}>
               <Card
                 sx={{
                   height: "100%",
-                  borderRadius: 5,
-                  bgcolor: "rgba(255,255,255,.95)",
-                  boxShadow: "0 18px 45px rgba(0,0,0,.18)",
+                  borderRadius: 4,
+                  boxShadow: "0 15px 35px rgba(0,0,0,.08)",
                 }}
               >
                 <CardContent>
-                  <Typography sx={{ fontSize: 34, mb: 1 }}>{item.icon}</Typography>
-                  <Typography variant="h6" fontWeight={900}>
-                    {item.title}
-                  </Typography>
-                  <Typography color="text.secondary">{item.text}</Typography>
+                  <Stack direction="row" justifyContent="space-between" mb={2}>
+                    <Typography fontWeight={900}>{section.title}</Typography>
+                    <Typography
+                      component={RouterLink}
+                      to="/catalog"
+                      sx={{
+                        color: "#1565c0",
+                        fontSize: ".85rem",
+                        textDecoration: "none",
+                        fontWeight: 800,
+                      }}
+                    >
+                      View all
+                    </Typography>
+                  </Stack>
+
+                  {section.promo ? (
+                    <Box
+                      sx={{
+                        height: 260,
+                        borderRadius: 3,
+                        bgcolor: "#ffa322",
+                        color: "white",
+                        p: 3,
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Typography variant="h4" fontWeight={900}>
+                        Big Tech Deals
+                      </Typography>
+                      <Typography sx={{ my: 2 }}>
+                        Save more on certified refurbished electronics.
+                      </Typography>
+                      <Button
+                        component={RouterLink}
+                        to="/catalog"
+                        variant="contained"
+                        sx={{
+                          bgcolor: "white",
+                          color: "#111",
+                          borderRadius: 50,
+                          fontWeight: 900,
+                          width: 140,
+                          "&:hover": { bgcolor: "#f1f1f1" },
+                        }}
+                      >
+                        Shop now
+                      </Button>
+                    </Box>
+                  ) : (
+                    <Grid container spacing={2}>
+                      {section.items?.map((item) => (
+                        <Grid item xs={6} key={item.name}>
+                          <Box
+                            component={RouterLink}
+                            to="/catalog"
+                            sx={{
+                              display: "block",
+                              textDecoration: "none",
+                              color: "#111",
+                            }}
+                          >
+                            <Box
+                              sx={{
+                                height: 110,
+                                borderRadius: 3,
+                                bgcolor: "#f4f6f8",
+                                backgroundImage: `url(${item.image})`,
+                                backgroundSize: "contain",
+                                backgroundRepeat: "no-repeat",
+                                backgroundPosition: "center",
+                                mb: 1,
+                              }}
+                            />
+                            <Typography
+                              sx={{
+                                textAlign: "center",
+                                fontSize: ".85rem",
+                                fontWeight: 700,
+                              }}
+                            >
+                              {item.name}
+                            </Typography>
+                          </Box>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  )}
                 </CardContent>
               </Card>
             </Grid>
           ))}
         </Grid>
 
-        <Box sx={{ mt: 8 }}>
-          <Typography
-            sx={{
-              color: "white",
-              fontSize: { xs: "2rem", md: "3rem" },
-              fontWeight: 900,
-              mb: 3,
-            }}
-          >
-            Shop by Category
-          </Typography>
-
-          <Grid container spacing={4}>
-            {categories.map((category) => (
-              <Grid item xs={12} md={4} key={category.title}>
-                <Card
-                  sx={{
-                    height: 300,
-                    borderRadius: 6,
-                    overflow: "hidden",
-                    position: "relative",
-                    backgroundImage: `
-linear-gradient(to top, rgba(0,0,0,.75), transparent),
-url(${category.image})
-`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    boxShadow: "0 22px 50px rgba(0,0,0,.25)",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      bottom: 28,
-                      left: 28,
-                      color: "white",
-                    }}
-                  >
-                    <Typography variant="h4" fontWeight={900}>
-                      {category.title}
-                    </Typography>
-                    <Button
-                      sx={{
-                        mt: 1.5,
-                        color: "#f7c948",
-                        fontWeight: 800,
-                        textTransform: "none",
-                      }}
-                    >
-                      Explore →
-                    </Button>
-                  </Box>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-
-        <Box
-          sx={{
-            mt: 8,
-            p: { xs: 4, md: 7 },
-            borderRadius: 7,
-            bgcolor: "rgba(255,255,255,.96)",
-            boxShadow: "0 25px 60px rgba(0,0,0,.22)",
-            textAlign: "center",
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: { xs: "2rem", md: "3rem" },
-              fontWeight: 900,
-              mb: 2,
-            }}
-          >
-            Certified Tech. Better Prices.
-          </Typography>
-
-          <Typography
-            sx={{
-              maxWidth: 760,
-              mx: "auto",
-              color: "text.secondary",
-              fontSize: "1.1rem",
-              mb: 4,
-            }}
-          >
-            Restore helps you buy quality refurbished electronics with confidence,
-            warranty protection, and serious savings.
-          </Typography>
-
-          <Button
-            variant="contained"
-            size="large"
-            sx={{
-              borderRadius: 50,
-              px: 6,
-              py: 1.7,
-              fontWeight: 900,
-              textTransform: "none",
-              bgcolor: "#111827",
-              "&:hover": { bgcolor: "#000" },
-            }}
-          >
-            Start Shopping
-          </Button>
-        </Box>
+        <Grid container spacing={3} sx={{ mt: 4 }}>
+          {trustItems.map((item) => (
+            <Grid item xs={12} sm={6} md={3} key={item.title}>
+              <Card
+                sx={{
+                  borderRadius: 4,
+                  boxShadow: "0 12px 30px rgba(0,0,0,.07)",
+                }}
+              >
+                <CardContent>
+                  <Typography sx={{ fontSize: 34 }}>{item.icon}</Typography>
+                  <Typography fontWeight={900}>{item.title}</Typography>
+                  <Typography color="text.secondary">{item.text}</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
       </Container>
     </Box>
   );

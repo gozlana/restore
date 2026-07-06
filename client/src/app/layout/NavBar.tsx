@@ -38,7 +38,6 @@ import InputBase from "@mui/material/InputBase";
 
 
 
-
 const midLinks = [
   { title: "home", path: "/" },
   { title: "catalog", path: "/catalog" },
@@ -225,6 +224,7 @@ export default function NavBar() {
               </>
             )}
           </Box>
+          
           <IconButton
             component={Link}
             to="/basket"
