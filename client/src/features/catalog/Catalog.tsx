@@ -20,12 +20,12 @@ export default function Catalog() {
   return (
     <Grid2 container spacing={4} sx={{ flexDirection: {xs: "column", md: "row"} }}>
       <Grid2 
-        size={{ xs: 12, md: 3}}
+        size={{ xs: 12, md: 2.5}}
         sx={{ mt: { xs: -4, md: 0 }}}
         >
         <Filters filtersData={filtersData}/>
       </Grid2>
-      <Grid2 size={{ xs: 12, md: 9}}>
+      <Grid2 size={{ xs: 12, md: 9.5}}>
         {data.items && data.items.length > 0 ? (
           <>
             <ProductList products={data.items} />

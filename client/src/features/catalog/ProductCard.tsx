@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 import { Product } from "../../app/models/product";
 import { useAddBasketItemMutation } from "../basket/basketApi";
 import { currencyFormat } from "../../lib/util";
+import Rating from '@mui/material/Rating';
+import StarIcon from '@mui/icons-material/Star';
 
 type Props = {
   product: Product;
@@ -22,7 +24,7 @@ export default function ProductCard({ product }: Props) {
 
   return (
     <Card
-      elevation={3}
+      elevation={2}
       sx={{
         width: "100%",
         height: "100%",
@@ -32,21 +34,21 @@ export default function ProductCard({ product }: Props) {
     >
       <CardMedia
         sx={{
-          height: { xs: 160, sm: 240 },
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          height: { xs: 140, sm: 170, md: 220 },
+          backgroundSize: "contain",
+          backgroundPosition: "center"
         }}
         image={product.pictureUrl}
         title={product.name}
       />
 
-      <CardContent sx={{ flexGrow: 1, p: { xs: 1.5, sm: 2 } }}>
+      <CardContent >
         <Typography
           gutterBottom
           variant="subtitle2"
           sx={{
             textTransform: "uppercase",
-            fontWeight: 600,
+            fontWeight: 450,
             fontSize: { xs: "0.85rem", sm: "1rem" },
             lineHeight: 1.2,
           }}
@@ -58,51 +60,59 @@ export default function ProductCard({ product }: Props) {
           variant="h6"
           sx={{
             color: "secondary.main",
-            fontWeight: 700,
+            fontWeight: 370,
             fontSize: { xs: "1.1rem", sm: "1.25rem" },
           }}
         >
           {currencyFormat(product.price)}
         </Typography>
+        <Rating
+          value={5}
+          readOnly
+          size="small"
+          precision={0.5}
+          icon={<StarIcon fontSize="inherit" />}
+          emptyIcon={<StarIcon fontSize="inherit" />}
+          sx={{
+            color: '#f6b01e',
+            mb: 1,
+            mt: 1
+          }}
+        />
+        <CardActions
+          sx={{
+            justifyContent: "space-between"
+          }}
+        >
+          <Button
+            size="small"
+            disabled={isLoading}
+            onClick={() => addBasketItem({ product, quantity: 1 })}
+            startIcon={<ShoppingCartIcon fontSize="small" />}
+            sx={{
+              minWidth: 0,
+              fontSize: { xs: "0.7rem", sm: "0.875rem" },
+              px: { xs: 0.5, sm: 1 },
+            }}
+          >
+            Add
+          </Button>
+
+          <Button
+            size="small"
+            component={Link}
+            to={`/catalog/${product.id}`}
+            startIcon={<VisibilityIcon fontSize="small" />}
+            sx={{
+              minWidth: 0,
+              fontSize: { xs: "0.7rem", sm: "0.875rem" },
+              px: { xs: 0.5, sm: 1 },
+            }}
+          >
+            View
+          </Button>
+        </CardActions>
       </CardContent>
-
-      <CardActions
-        sx={{
-          justifyContent: "space-between",
-          px: { xs: 1, sm: 2 },
-          pb: 1.5,
-          pt: 0,
-          gap: 1,
-        }}
-      >
-        <Button
-          size="small"
-          disabled={isLoading}
-          onClick={() => addBasketItem({ product, quantity: 1 })}
-          startIcon={<ShoppingCartIcon fontSize="small" />}
-          sx={{
-            minWidth: 0,
-            fontSize: { xs: "0.7rem", sm: "0.875rem" },
-            px: { xs: 0.5, sm: 1 },
-          }}
-        >
-          Add
-        </Button>
-
-        <Button
-          size="small"
-          component={Link}
-          to={`/catalog/${product.id}`}
-          startIcon={<VisibilityIcon fontSize="small" />}
-          sx={{
-            minWidth: 0,
-            fontSize: { xs: "0.7rem", sm: "0.875rem" },
-            px: { xs: 0.5, sm: 1 },
-          }}
-        >
-          View
-        </Button>
-      </CardActions>
     </Card>
   );
 }

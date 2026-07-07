@@ -6,14 +6,14 @@ type Props = {
   products: Product[]
 }
 
-export default function ProductList({products}: Props) {
+export default function ProductList({ products }: Props) {
   return (
     <Grid2 container spacing={3}>
       {products.map(product => (
-        <Grid2 size={{ xs: 6, sm: 6, md: 4}} display="flex" key={product.id}>
-          <ProductCard product={product}/>
+        <Grid2 size={{ xs: 12, sm: 6, md: 6, lg: 3}} display="flex" key={product.id}>
+          <ProductCard product={product} />
         </Grid2>
-        
+
       ))}
     </Grid2>
   )
