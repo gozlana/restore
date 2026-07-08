@@ -34,7 +34,7 @@ export default function ProductCard({ product }: Props) {
     >
       <CardMedia
         sx={{
-          height: { xs: 140, sm: 170, md: 220 },
+          height: { xs: 188, sm: 170, md: 222 },
           backgroundSize: "contain",
           backgroundPosition: "center"
         }}
