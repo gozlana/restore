@@ -175,7 +175,7 @@ export default function NavBar() {
               borderRadius: "999px",
               transition: "all .3s ease",
               bgcolor: searchOpen ? "rgba(255,255,255,.15)" : "transparent",
-              mr: 1.5,
+              
             }}
           >
             <IconButton
@@ -224,7 +224,7 @@ export default function NavBar() {
               </>
             )}
           </Box>
-          
+
           <IconButton
             component={Link}
             to="/basket"

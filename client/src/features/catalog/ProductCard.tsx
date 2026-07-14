@@ -34,9 +34,15 @@ export default function ProductCard({ product }: Props) {
     >
       <CardMedia
         sx={{
-          height: { xs: 188, sm: 170, md: 222 },
-          backgroundSize: "contain",
-          backgroundPosition: "center"
+          height: { xs: 188, sm: 170, md: 190 },
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          mt: 1,
+          mr: 1,
+          ml: 1,
+          borderRadius: 3,
+          overflow: "hidden",
+          border: "1px solid rgba(15, 23, 42, 0.08)"
         }}
         image={product.pictureUrl}
         title={product.name}
@@ -81,7 +87,8 @@ export default function ProductCard({ product }: Props) {
         />
         <CardActions
           sx={{
-            justifyContent: "space-between"
+            justifyContent: "space-between",
+            gap: 4
           }}
         >
           <Button
@@ -92,7 +99,7 @@ export default function ProductCard({ product }: Props) {
             sx={{
               minWidth: 0,
               fontSize: { xs: "0.7rem", sm: "0.875rem" },
-              px: { xs: 0.5, sm: 1 },
+              px: { xs: 0.5, sm: 4 },
             }}
           >
             Add
@@ -106,7 +113,7 @@ export default function ProductCard({ product }: Props) {
             sx={{
               minWidth: 0,
               fontSize: { xs: "0.7rem", sm: "0.875rem" },
-              px: { xs: 0.5, sm: 1 },
+              px: { xs: 0.5, sm: 4},
             }}
           >
             View
