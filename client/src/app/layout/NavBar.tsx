@@ -157,9 +157,12 @@ export default function NavBar() {
               to={path}
               key={path}
               end={path === "/"}
-              sx={navStyles}
+              sx={{
+                ...navStyles,
+                textTransform: 'capitalize'
+              }}
             >
-              {title.toUpperCase()}
+              {title}
             </ListItem>
           ))}
         </List>
@@ -170,12 +173,12 @@ export default function NavBar() {
               display: "flex",
               alignItems: "center",
               overflow: "hidden",
-              width: searchOpen ? 260 : 42,
+              width: searchOpen ? 220 : 42,
               height: 42,
               borderRadius: "999px",
               transition: "all .3s ease",
               bgcolor: searchOpen ? "rgba(255,255,255,.15)" : "transparent",
-              
+
             }}
           >
             <IconButton
@@ -245,9 +248,12 @@ export default function NavBar() {
                   component={NavLink}
                   to={path}
                   key={path}
-                  sx={navStyles}
+                  sx={{
+                    ...navStyles,
+                    textTransform: 'capitalize'
+                  }}
                 >
-                  {title.toUpperCase()}
+                  {title}
                 </ListItem>
               ))}
             </List>
@@ -295,7 +301,7 @@ export default function NavBar() {
               { title: "Catalog", path: "/catalog", icon: <StorefrontOutlinedIcon /> },
               { title: "About", path: "/about", icon: <InfoOutlinedIcon /> },
               { title: "Contact", path: "/contact", icon: <ContactMailOutlinedIcon /> },
-              { title: "Login", path: "/login", icon: <LoginOutlinedIcon /> },
+              { title: "Log in", path: "/login", icon: <LoginOutlinedIcon /> },
               { title: "Register", path: "/register", icon: <PersonAddOutlinedIcon /> },
             ].map((item) => (
               <ListItem

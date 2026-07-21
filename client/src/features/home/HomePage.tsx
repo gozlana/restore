@@ -75,7 +75,7 @@ const trustItems = [
 
 export default function HomePage() {
   return (
-    <Box sx={{ bgcolor: "#f5f7fb", minHeight: "100vh", pb: 6 }}>
+    <Box>
       <Container maxWidth={false} sx={{ px: { xs: 2, md: 4 }, pt: 3 }}>
         <Swiper
           modules={[Autoplay, Pagination, Navigation]}

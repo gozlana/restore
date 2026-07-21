@@ -66,7 +66,6 @@ export default function Filters({ filtersData: data }: Props) {
   const titleSx = {
     display: "flex",
     alignItems: "center",
-    gap: 1,
     fontWeight: 800,
     color: "text.primary",
   };
@@ -75,7 +74,7 @@ export default function Filters({ filtersData: data }: Props) {
     <Box
       display="flex"
       flexDirection="column"
-      gap={3}
+      gap={2}
       sx={{
         width: "100%",
         pb: { xs: 2, md: 0 },

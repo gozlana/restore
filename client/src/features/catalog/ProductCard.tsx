@@ -29,7 +29,7 @@ export default function ProductCard({ product }: Props) {
         width: "100%",
         height: "100%",
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "column"
       }}
     >
       <CardMedia
@@ -40,7 +40,7 @@ export default function ProductCard({ product }: Props) {
           mt: 1,
           mr: 1,
           ml: 1,
-          borderRadius: 3,
+          borderRadius: 2,
           overflow: "hidden",
           border: "1px solid rgba(15, 23, 42, 0.08)"
         }}
@@ -48,15 +48,22 @@ export default function ProductCard({ product }: Props) {
         title={product.name}
       />
 
-      <CardContent >
+      <CardContent
+        sx={{
+          px: 3,
+          pt: 0,
+          p: 2,
+          '&:last-child': {
+            pb: 0
+          }
+        }}
+      >
         <Typography
           gutterBottom
           variant="subtitle2"
           sx={{
-            textTransform: "uppercase",
-            fontWeight: 450,
+            fontWeight: 600,
             fontSize: { xs: "0.85rem", sm: "1rem" },
-            lineHeight: 1.2,
           }}
         >
           {product.name}
@@ -66,31 +73,50 @@ export default function ProductCard({ product }: Props) {
           variant="h6"
           sx={{
             color: "secondary.main",
-            fontWeight: 370,
-            fontSize: { xs: "1.1rem", sm: "1.25rem" },
+            fontWeight: 500,
+            fontSize: { xs: "1.1rem", sm: "1.1rem" }
           }}
         >
+          <Rating
+            value={5}
+            readOnly
+            size="small"
+            precision={0.5}
+            icon={<StarIcon fontSize="inherit" />}
+            emptyIcon={<StarIcon fontSize="inherit" />}
+            sx={{
+              color: '#f6b01e',
+              mb: 1,
+              mt: 0,
+              mr: 3.4
+            }}
+          />
           {currencyFormat(product.price)}
+
         </Typography>
-        <Rating
-          value={5}
-          readOnly
-          size="small"
-          precision={0.5}
-          icon={<StarIcon fontSize="inherit" />}
-          emptyIcon={<StarIcon fontSize="inherit" />}
-          sx={{
-            color: '#f6b01e',
-            mb: 1,
-            mt: 1
-          }}
-        />
+
         <CardActions
           sx={{
             justifyContent: "space-between",
-            gap: 4
+            gap: 3
           }}
         >
+          <Button
+            size="small"
+            variant="outlined"
+            component={Link}
+            to={`/catalog/${product.id}`}
+            startIcon={<VisibilityIcon fontSize="small" />}
+            sx={{
+              minWidth: 0,
+              fontSize: { xs: "0.7rem", sm: "0.675rem" },
+              px: { xs: 0.5, sm: 1 },
+              borderBlockStyle: 'solid',
+              borderColor: '#1976d2',
+            }}
+          >
+            View
+          </Button>
           <Button
             size="small"
             disabled={isLoading}
@@ -98,25 +124,13 @@ export default function ProductCard({ product }: Props) {
             startIcon={<ShoppingCartIcon fontSize="small" />}
             sx={{
               minWidth: 0,
-              fontSize: { xs: "0.7rem", sm: "0.875rem" },
-              px: { xs: 0.5, sm: 4 },
+              fontSize: { xs: "0.7rem", sm: "0.675rem" },
+              px: { xs: 0.5, sm: 1 },
+              backgroundColor: '#4a27d7',
+              color: 'white'
             }}
           >
             Add
-          </Button>
-
-          <Button
-            size="small"
-            component={Link}
-            to={`/catalog/${product.id}`}
-            startIcon={<VisibilityIcon fontSize="small" />}
-            sx={{
-              minWidth: 0,
-              fontSize: { xs: "0.7rem", sm: "0.875rem" },
-              px: { xs: 0.5, sm: 4},
-            }}
-          >
-            View
           </Button>
         </CardActions>
       </CardContent>

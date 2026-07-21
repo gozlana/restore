@@ -39,7 +39,7 @@ export default function Search() {
         mb: 3,
 
         "& .MuiOutlinedInput-root": {
-          backgroundColor: "#ffffff",
+          backgroundColor: "transparant",
           borderRadius: "16px",
           boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
 
